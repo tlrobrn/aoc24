@@ -29,8 +29,26 @@ function M.part1(input)
   return total
 end
 
+local function counts(list)
+  local result = {}
+
+  for _, entry in ipairs(list) do
+    result[entry] = (result[entry] or 0) + 1
+  end
+
+  return result
+end
+
 function M.part2(input)
-  return "not implemented"
+  local leftList, rightList = getSortedLists(input)
+  local similarityScore = 0
+  local rightCounts = counts(rightList)
+
+  for _, entry in ipairs(leftList) do
+    similarityScore = similarityScore + entry * (rightCounts[entry] or 0)
+  end
+
+  return similarityScore
 end
 
 return M
