@@ -56,8 +56,34 @@ function M.part1(input)
   return safeCount
 end
 
+local function copyWithout(t, i)
+  local newTable = {}
+
+  for j, entry in ipairs(t) do
+    if i ~= j then
+      newTable[#newTable + 1] = entry
+    end
+  end
+
+  return newTable
+end
+
 function M.part2(input)
-  return "not implemented"
+  local reports = parseReports(input)
+  local safeCount = 0
+
+  for _, report in ipairs(reports) do
+    for i = 0, #report do
+      if isSafe(copyWithout(report, i)) then
+        safeCount = safeCount + 1
+        goto continue
+      end
+    end
+
+    ::continue::
+  end
+
+  return safeCount
 end
 
 return M
