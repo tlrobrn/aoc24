@@ -3,7 +3,8 @@
   "packages": [
     "luajit@latest",
     "watchexec@latest",
-    "luarocks@latest"
+    "luarocks@latest",
+    "hyperfine@latest"
   ],
   "shell": {
     "init_hook": [

@@ -1,6 +1,54 @@
 {
   "lockfile_version": "1",
   "packages": {
+    "hyperfine@latest": {
+      "last_modified": "2024-11-16T04:25:12Z",
+      "resolved": "github:NixOS/nixpkgs/34a626458d686f1b58139620a8b2793e9e123bba#hyperfine",
+      "source": "devbox-search",
+      "version": "1.19.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/rpw57ljxb1xp388sxy1pvrnlkpzkn5ag-hyperfine-1.19.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/rpw57ljxb1xp388sxy1pvrnlkpzkn5ag-hyperfine-1.19.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/rhl45qwdnnzz8z3mwjcvm5iz9bkspf0r-hyperfine-1.19.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/rhl45qwdnnzz8z3mwjcvm5iz9bkspf0r-hyperfine-1.19.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/d6j0y21l6s98kjfa7b4ba34bx5rjsggp-hyperfine-1.19.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/d6j0y21l6s98kjfa7b4ba34bx5rjsggp-hyperfine-1.19.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/chxjl7yxnvqi35k53g1whd6n5km9cpfg-hyperfine-1.19.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/chxjl7yxnvqi35k53g1whd6n5km9cpfg-hyperfine-1.19.0"
+        }
+      }
+    },
     "luajit@latest": {
       "last_modified": "2024-11-16T04:25:12Z",
       "resolved": "github:NixOS/nixpkgs/34a626458d686f1b58139620a8b2793e9e123bba#luajit",
