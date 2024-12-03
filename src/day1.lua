@@ -2,17 +2,22 @@ require("src.stringutils")
 
 local M = {}
 
+local cachedLeftList, cachedRightList
+
 local function getSortedLists(input)
-  local leftList = {}
-  local rightList = {}
-  for _, line in ipairs(input) do
-    local left, right = table.unpack(string.split(line, "%s+"))
-    leftList[#leftList + 1] = tonumber(left)
-    rightList[#rightList + 1] = tonumber(right)
+  if not cachedLeftList and not cachedRightList then
+    cachedLeftList = {}
+    cachedRightList = {}
+    for _, line in ipairs(input) do
+      local left, right = table.unpack(string.split(line, "%s+"))
+      cachedLeftList[#cachedLeftList + 1] = tonumber(left)
+      cachedRightList[#cachedRightList + 1] = tonumber(right)
+    end
+    table.sort(cachedLeftList)
+    table.sort(cachedRightList)
   end
-  table.sort(leftList)
-  table.sort(rightList)
-  return leftList, rightList
+
+  return cachedLeftList, cachedRightList
 end
 
 function M.part1(input)
