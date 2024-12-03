@@ -21,7 +21,7 @@
         "bin/run.sh $DAY"
       ],
       "bench": [
-        "hyperfine -N -w1 -r5 -L day $DAY 'bin/run.sh {day}'"
+        "hyperfine -N -w3 -L day $DAY 'bin/run.sh {day}'"
       ]
     }
   }
