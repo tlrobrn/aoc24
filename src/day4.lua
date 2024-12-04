@@ -208,6 +208,27 @@ local function checkAllDirections(grid, x, y)
   return count
 end
 
+local function checkX(grid, x, y)
+  if grid:at(x, y) ~= "A" then
+    return 0
+  end
+
+  local northWest = grid:at(x - 1, y - 1)
+  local southWest = grid:at(x - 1, y + 1)
+  local northEast = grid:at(x + 1, y - 1)
+  local southEast = grid:at(x + 1, y + 1)
+
+  if not ((northWest == "M" and southEast == "S") or (northWest == "S" and southEast == "M")) then
+    return 0
+  end
+
+  if not ((southWest == "M" and northEast == "S") or (southWest == "S" and northEast == "M")) then
+    return 0
+  end
+
+  return 1
+end
+
 function M.part1(input)
   local count = 0
   local grid = Grid:new(input)
@@ -222,7 +243,16 @@ function M.part1(input)
 end
 
 function M.part2(input)
-  return "not implemented"
+  local count = 0
+  local grid = Grid:new(input)
+
+  for x = 1, grid:width() do
+    for y = 1, grid:height() do
+      count = count + checkX(grid, x, y)
+    end
+  end
+
+  return count
 end
 
 return M
