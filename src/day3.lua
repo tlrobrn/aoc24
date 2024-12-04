@@ -25,7 +25,6 @@ function M.part2(input)
     remainingInput = string.sub(remainingInput, oneBeforeStartOfNextSegment + 1)
 
     endOfSegment, oneBeforeStartOfNextSegment = string.find(remainingInput, "do()", 1, true)
-    endOfSegment = endOfSegment or #remainingInput + 1
     oneBeforeStartOfNextSegment = oneBeforeStartOfNextSegment or #remainingInput
 
     remainingInput = string.sub(remainingInput, oneBeforeStartOfNextSegment + 1)
