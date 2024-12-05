@@ -66,7 +66,22 @@ function M.part1(input)
 end
 
 function M.part2(input)
-  return "not implemented"
+  local ordering, reports = parse(input)
+
+  local total = 0
+  for _,report in ipairs(reports) do
+    local len = #report
+    local mid = math.ceil(len / 2)
+    if not inOrder(report, ordering) then
+      while not inOrder(report, ordering) do
+        table.sort(report, function(a,b)
+          return not (ordering[b] or {})[a]
+        end)
+      end
+      total = total + report[mid]
+    end
+  end
+  return total
 end
 
 return M
