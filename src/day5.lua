@@ -53,9 +53,6 @@ end
 
 function M.part1(input)
   local ordering, reports = parse(input)
-  local function cmp(a, b)
-    return not (ordering[b] or {})[a]
-  end
 
   local total = 0
   for _,report in ipairs(reports) do
