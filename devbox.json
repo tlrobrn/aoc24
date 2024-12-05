@@ -4,7 +4,8 @@
     "luajit@latest",
     "watchexec@latest",
     "luarocks@latest",
-    "hyperfine@latest"
+    "hyperfine@latest",
+    "lua-language-server@latest"
   ],
   "shell": {
     "init_hook": [

@@ -49,6 +49,54 @@
         }
       }
     },
+    "lua-language-server@latest": {
+      "last_modified": "2024-11-26T10:33:56Z",
+      "resolved": "github:NixOS/nixpkgs/af51545ec9a44eadf3fe3547610a5cdd882bc34e#lua-language-server",
+      "source": "devbox-search",
+      "version": "3.13.2",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/gyikhg1vf283rdbxd2g67b9f1mb4rv60-lua-language-server-3.13.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/gyikhg1vf283rdbxd2g67b9f1mb4rv60-lua-language-server-3.13.2"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/sp5j2jksaydj7xxipz2q3f67wmlx12fs-lua-language-server-3.13.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/sp5j2jksaydj7xxipz2q3f67wmlx12fs-lua-language-server-3.13.2"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/0x7hhqsqlqh6drxmdxw3sz8bxj1shhr3-lua-language-server-3.13.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/0x7hhqsqlqh6drxmdxw3sz8bxj1shhr3-lua-language-server-3.13.2"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/6jsshvllg6bq9bkhpx285mkpbxzz1ys4-lua-language-server-3.13.2",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/6jsshvllg6bq9bkhpx285mkpbxzz1ys4-lua-language-server-3.13.2"
+        }
+      }
+    },
     "luajit@latest": {
       "last_modified": "2024-11-16T04:25:12Z",
       "resolved": "github:NixOS/nixpkgs/34a626458d686f1b58139620a8b2793e9e123bba#luajit",
