@@ -1,5 +1,7 @@
 # Advent of Code 2024 in Lua
 
+https://adventofcode.com/
+
 ## Usage
 
 ### Run a day
