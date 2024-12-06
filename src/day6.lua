@@ -132,19 +132,13 @@ function M.part2(input)
 
   while world:step() do
     local pos = { x = world.guard.x, y = world.guard.y }
-    for x = -1, 1 do
-      for y = -1, 1 do
-        local try = { x = pos.x + x, y = pos.y + y }
-        if
-          not alreadyGoingToTry[encodePoint(try)]
-          and (not world:hasObstacle(try.x, try.y))
-          and (world.startingPosition.x ~= try.x or world.startingPosition.y ~= try.y)
-          and world:withinBounds(try.x, try.y)
-        then
-          table.insert(locationsToTry, try)
-          alreadyGoingToTry[encodePoint(try)] = true
-        end
-      end
+    if
+      not alreadyGoingToTry[encodePoint(pos)]
+      and (world.startingPosition.x ~= pos.x or world.startingPosition.y ~= pos.y)
+      and world:withinBounds(pos.x, pos.y)
+    then
+      table.insert(locationsToTry, pos)
+      alreadyGoingToTry[encodePoint(pos)] = true
     end
   end
 
