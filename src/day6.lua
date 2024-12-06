@@ -40,6 +40,7 @@ function World:new()
     width = nil,
     height = nil,
     guard = nil,
+    startingPosition = nil,
   }, self)
 end
 
@@ -47,12 +48,29 @@ function World:addObstacle(x, y)
   self.obstacles[encodePoint({ x = x, y = y })] = true
 end
 
+function World:removeObstacle(x, y)
+  self.obstacles[encodePoint({ x = x, y = y })] = nil
+end
+
+function World:hasObstacle(x, y)
+  return self.obstacles[encodePoint({ x = x, y = y })]
+end
+
 function World:addGuard(x, y)
+  self.startingPosition = { x = x, y = y }
   self.guard = Guard:new(x, y)
+end
+
+function World:resetGuard()
+  self.guard = Guard:new(self.startingPosition.x, self.startingPosition.y)
 end
 
 function World:encodeGuardPosition()
   return encodePoint(self.guard)
+end
+
+function World:encodeGuardPositionAndDirection()
+  return self:encodeGuardPosition() .. ":" .. encodePoint(self.guard.direction)
 end
 
 function World:step()
@@ -104,7 +122,38 @@ function M.part1(input)
 end
 
 function M.part2(input)
-  return "not implemented"
+  local world = parse(input)
+  local count = 0
+
+  for x = 1, world.width do
+    for y = 1, world.height do
+      world:resetGuard()
+      if world:hasObstacle(x, y) or (x == world.guard.x and y == world.guard.y) then
+        goto skip
+      end
+
+      local seen = {
+        [world:encodeGuardPositionAndDirection()] = true,
+      }
+
+      world:addObstacle(x, y)
+      while world:step() do
+        local pos = world:encodeGuardPositionAndDirection()
+        if seen[pos] then
+          count = count + 1
+          goto continue
+        end
+
+        seen[pos] = true
+      end
+      ::continue::
+      world:removeObstacle(x, y)
+
+      ::skip::
+    end
+  end
+
+  return count
 end
 
 return M
