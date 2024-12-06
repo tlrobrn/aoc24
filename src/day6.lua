@@ -80,7 +80,11 @@ function World:step()
     self.guard:turn()
   end
 
-  return self.guard.x >= 1 and self.guard.x <= self.width and self.guard.y >= 1 and self.guard.y <= self.height
+  return self:withinBounds(self.guard.x, self.guard.y)
+end
+
+function World:withinBounds(x, y)
+  return x >= 1 and x <= self.width and y >= 1 and y <= self.height
 end
 
 local function parse(input)
@@ -123,34 +127,49 @@ end
 
 function M.part2(input)
   local world = parse(input)
-  local count = 0
+  local locationsToTry = {}
+  local alreadyGoingToTry = {}
 
-  for x = 1, world.width do
-    for y = 1, world.height do
-      world:resetGuard()
-      if world:hasObstacle(x, y) or (x == world.guard.x and y == world.guard.y) then
-        goto skip
-      end
-
-      local seen = {
-        [world:encodeGuardPositionAndDirection()] = true,
-      }
-
-      world:addObstacle(x, y)
-      while world:step() do
-        local pos = world:encodeGuardPositionAndDirection()
-        if seen[pos] then
-          count = count + 1
-          goto continue
+  while world:step() do
+    local pos = { x = world.guard.x, y = world.guard.y }
+    for x = -1, 1 do
+      for y = -1, 1 do
+        local try = { x = pos.x + x, y = pos.y + y }
+        if
+          not alreadyGoingToTry[encodePoint(try)]
+          and (not world:hasObstacle(try.x, try.y))
+          and (world.startingPosition.x ~= try.x or world.startingPosition.y ~= try.y)
+          and world:withinBounds(try.x, try.y)
+        then
+          table.insert(locationsToTry, try)
+          alreadyGoingToTry[encodePoint(try)] = true
         end
-
-        seen[pos] = true
       end
-      ::continue::
-      world:removeObstacle(x, y)
-
-      ::skip::
     end
+  end
+
+  local count = 0
+  for _, location in ipairs(locationsToTry) do
+    local x, y = location.x, location.y
+
+    world:resetGuard()
+    local seen = {
+      [world:encodeGuardPositionAndDirection()] = true,
+    }
+
+    world:addObstacle(x, y)
+    while world:step() do
+      local pos = world:encodeGuardPositionAndDirection()
+      if seen[pos] then
+        count = count + 1
+        goto continue
+      end
+
+      seen[pos] = true
+    end
+
+    ::continue::
+    world:removeObstacle(x, y)
   end
 
   return count
