@@ -52,10 +52,6 @@ function World:removeObstacle(x, y)
   self.obstacles[encodePoint({ x = x, y = y })] = nil
 end
 
-function World:hasObstacle(x, y)
-  return self.obstacles[encodePoint({ x = x, y = y })]
-end
-
 function World:addGuard(x, y)
   self.startingPosition = { x = x, y = y }
   self.guard = Guard:new(x, y)
@@ -128,15 +124,11 @@ end
 function M.part2(input)
   local world = parse(input)
   local locationsToTry = {}
-  local alreadyGoingToTry = {}
+  local alreadyGoingToTry = { [encodePoint(world.startingPosition)] = true }
 
   while world:step() do
     local pos = { x = world.guard.x, y = world.guard.y }
-    if
-      not alreadyGoingToTry[encodePoint(pos)]
-      and (world.startingPosition.x ~= pos.x or world.startingPosition.y ~= pos.y)
-      and world:withinBounds(pos.x, pos.y)
-    then
+    if not alreadyGoingToTry[encodePoint(pos)] then
       table.insert(locationsToTry, pos)
       alreadyGoingToTry[encodePoint(pos)] = true
     end
@@ -158,7 +150,6 @@ function M.part2(input)
         count = count + 1
         goto continue
       end
-
       seen[pos] = true
     end
 
