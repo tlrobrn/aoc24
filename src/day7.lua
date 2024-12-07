@@ -28,22 +28,18 @@ function M.part1(input)
   local total = 0
 
   for _, test in ipairs(tests) do
-    local possibilities = { test.numbers[1] }
+    local results = { test.numbers[1] }
     for i = 2, #test.numbers do
+      local possibilities = {}
       local n = test.numbers[i]
-      local applyTo = math.pow(2, i - 2)
-      local start = #possibilities
-      for j = 0, applyTo - 1 do
-        local at = start - j
-        possibilities[#possibilities + 1] = possibilities[at] + n
-        possibilities[#possibilities + 1] = possibilities[at] * n
+      for _, m in ipairs(results) do
+        possibilities[#possibilities + 1] = m + n
+        possibilities[#possibilities + 1] = m * n
       end
+      results = possibilities
     end
 
-    local check = math.pow(2, #test.numbers - 1)
-    local start = #possibilities
-    for i = 0, check - 1 do
-      local result = possibilities[start - i]
+    for _, result in ipairs(results) do
       if test.expected == result then
         total = total + test.expected
         goto continue
@@ -61,23 +57,19 @@ function M.part2(input)
   local total = 0
 
   for _, test in ipairs(tests) do
-    local possibilities = { test.numbers[1] }
+    local results = { test.numbers[1] }
     for i = 2, #test.numbers do
+      local possibilities = {}
       local n = test.numbers[i]
-      local applyTo = math.pow(3, i - 2)
-      local start = #possibilities
-      for j = 0, applyTo - 1 do
-        local at = start - j
-        possibilities[#possibilities + 1] = possibilities[at] + n
-        possibilities[#possibilities + 1] = possibilities[at] * n
-        possibilities[#possibilities + 1] = tonumber(possibilities[at] .. n)
+      for _, m in ipairs(results) do
+        possibilities[#possibilities + 1] = m + n
+        possibilities[#possibilities + 1] = m * n
+        possibilities[#possibilities + 1] = tonumber(m .. n)
       end
+      results = possibilities
     end
 
-    local check = math.pow(3, #test.numbers - 1)
-    local start = #possibilities
-    for i = 0, check - 1 do
-      local result = possibilities[start - i]
+    for _, result in ipairs(results) do
       if test.expected == result then
         total = total + test.expected
         goto continue
