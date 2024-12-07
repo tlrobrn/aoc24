@@ -33,8 +33,10 @@ function M.part1(input)
       local possibilities = {}
       local n = test.numbers[i]
       for _, m in ipairs(results) do
-        possibilities[#possibilities + 1] = m + n
-        possibilities[#possibilities + 1] = m * n
+        if m <= test.expected then
+          possibilities[#possibilities + 1] = m + n
+          possibilities[#possibilities + 1] = m * n
+        end
       end
       results = possibilities
     end
@@ -62,9 +64,11 @@ function M.part2(input)
       local possibilities = {}
       local n = test.numbers[i]
       for _, m in ipairs(results) do
-        possibilities[#possibilities + 1] = m + n
-        possibilities[#possibilities + 1] = m * n
-        possibilities[#possibilities + 1] = tonumber(m .. n)
+        if m <= test.expected then
+          possibilities[#possibilities + 1] = m + n
+          possibilities[#possibilities + 1] = m * n
+          possibilities[#possibilities + 1] = tonumber(m .. n)
+        end
       end
       results = possibilities
     end
