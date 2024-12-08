@@ -20,3 +20,26 @@ describe("part1", function()
     assert.are.equal(14, day.part1(TEST_INPUT))
   end)
 end)
+
+describe("part2", function()
+  it("handles the test input", function()
+    assert.are.equal(34, day.part2(TEST_INPUT))
+  end)
+
+  it("handles the other test input", function()
+    local input = {
+      "T.........",
+      "...T......",
+      ".T........",
+      "..........",
+      "..........",
+      "..........",
+      "..........",
+      "..........",
+      "..........",
+      "..........",
+    }
+
+    assert.are.equal(9, day.part2(input))
+  end)
+end)

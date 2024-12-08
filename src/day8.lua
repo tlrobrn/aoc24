@@ -58,8 +58,62 @@ function M.part1(input)
   return count
 end
 
+local function allAlongLineWithinBounds(points, width, height)
+  local result = { count = 0 }
+
+  function inbounds(x, y)
+    return x >= 1 and x <= width and y >= 1 and y <= height
+  end
+
+  for _, pointList in pairs(points) do
+    if #pointList < 2 then
+      goto skip
+    end
+
+    for i = 1, #pointList - 1 do
+      local x1, y1 = table.unpack(pointList[i])
+      if not result[x1 .. "," .. y1] then
+        result.count = result.count + 1
+        result[x1 .. "," .. y1] = true
+      end
+
+      for j = i + 1, #pointList do
+        local x2, y2 = table.unpack(pointList[j])
+        if not result[x2 .. "," .. y2] then
+          result.count = result.count + 1
+          result[x2 .. "," .. y2] = true
+        end
+        local dx, dy = x2 - x1, y2 - y1
+        -- increase
+        local x, y = x2 + dx, y2 + dy
+        while inbounds(x, y) do
+          if not result[x .. "," .. y] then
+            result.count = result.count + 1
+            result[x .. "," .. y] = true
+          end
+          x, y = x + dx, y + dy
+        end
+        -- decrease
+        x, y = x1 - dx, y1 - dy
+        while inbounds(x, y) do
+          if not result[x .. "," .. y] then
+            result.count = result.count + 1
+            result[x .. "," .. y] = true
+          end
+          x, y = x - dx, y - dy
+        end
+      end
+    end
+    ::skip::
+  end
+
+  return result
+end
+
 function M.part2(input)
-  return "not implemented"
+  local points, width, height = parse(input)
+  local antinodes = allAlongLineWithinBounds(points, width, height)
+  return antinodes.count
 end
 
 return M
