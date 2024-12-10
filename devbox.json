@@ -22,7 +22,7 @@
         "bin/run.sh $DAY $PART"
       ],
       "bench": [
-        "hyperfine -N -w3 -L day $DAY 'bin/run.sh {day}'"
+        "bin/bench.sh $DAY $PART"
       ]
     }
   }
