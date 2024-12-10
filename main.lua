@@ -16,11 +16,19 @@ local function read_input()
   return input
 end
 
+local function parts()
+  local userPart = arg[2]
+  if userPart then
+    return { userPart }
+  end
+
+  return { 1, 2 }
+end
+
 local day = load_day(arg[1])
 local input = read_input()
 
-local result = day.part1(input)
-print("Part 1: " .. result)
-
-result = day.part2(input)
-print("Part 2: " .. result)
+for _, part in ipairs(parts()) do
+  local result = day["part" .. part](input)
+  print("Part " .. part .. ": " .. result)
+end

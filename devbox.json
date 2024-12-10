@@ -19,7 +19,7 @@
         "watchexec -c -e lua lua_modules/bin/busted"
       ],
       "day": [
-        "bin/run.sh $DAY"
+        "bin/run.sh $DAY $PART"
       ],
       "bench": [
         "hyperfine -N -w3 -L day $DAY 'bin/run.sh {day}'"
