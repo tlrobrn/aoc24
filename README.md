@@ -19,6 +19,12 @@ For example, to run Day 1, you would want to save the puzzle input to `input/day
 DAY=1 devbox run day
 ```
 
+You can also specify which part to run. The following example would run part 2 from day 1:
+
+```
+DAY=1 PART=2 devbox run day
+```
+
 ### Run tests
 
 Run the tests:
@@ -42,3 +48,8 @@ DAY=GIVEN devbox run bench
 ```
 
 Just like with running a GIVEN day, it is expected that there is an input file for the GIVEN day in the `input/` directory.
+Similarly, you can also specify which part to run. The following example would benchmark part 2 from day 1:
+
+```
+DAY=1 PART=2 devbox run bench
+```
