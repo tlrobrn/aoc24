@@ -24,10 +24,16 @@ local function newNode(h)
   }
 end
 
+local cache = {}
+
 local Graph = {}
 Graph.__index = Graph
 
 function Graph:new(input)
+  if cache[input] then
+    return cache[input]
+  end
+
   local nodes = {}
   local heads = {}
   local encode, decode = encoder(#input[1], #input)
@@ -62,10 +68,12 @@ function Graph:new(input)
     end
   end
 
-  return setmetatable({
+  cache[input] = setmetatable({
     nodes = nodes,
     heads = heads,
   }, self)
+
+  return cache[input]
 end
 
 local function shallowCopy(t)
@@ -93,10 +101,33 @@ local function scoreNode(node)
   return count
 end
 
+local function rateNode(node)
+  local count = 0
+  local paths = shallowCopy(node.neighbors)
+  while #paths > 0 do
+    local path = table.remove(paths)
+    for _, neighbor in ipairs(path.neighbors) do
+      paths[#paths + 1] = neighbor
+    end
+    if path.h == 9 then
+      count = count + 1
+    end
+  end
+  return count
+end
+
 function Graph:score()
   local total = 0
   for _, head in ipairs(self.heads) do
     total = total + scoreNode(head)
+  end
+  return total
+end
+
+function Graph:rating()
+  local total = 0
+  for _, head in ipairs(self.heads) do
+    total = total + rateNode(head)
   end
   return total
 end
@@ -107,7 +138,8 @@ function M.part1(input)
 end
 
 function M.part2(input)
-  return "not implemented"
+  local graph = Graph:new(input)
+  return graph:rating()
 end
 
 return M
